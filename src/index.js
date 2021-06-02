@@ -26,7 +26,8 @@ class App extends React.Component {
             //we don't know latitude yet, we set that to null
             //THIS IS THE ONLY TIME we do direct assignment
             //to this.state
-            lat: null
+            lat: null,
+            errorMessage: ''
         };
 
         window.navigator.geolocation.getCurrentPosition(
@@ -41,12 +42,20 @@ class App extends React.Component {
             },
     
             //this call back will call anytime the location not found or client denied 
-            err => console.log(err)
+            err => {
+                this.setState({ errorMessage: err.message });
+            }
         );
     }
     //React says we have to define render!!
     render() {
-        return <div>Latitude: {this.state.lat}</div>
+        return (
+            <div>
+                Latitude: {this.state.lat}
+                <br />
+                Error: {this.state.errorMessage}
+            </div>
+            );
     }
 }
 
