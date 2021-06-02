@@ -47,15 +47,27 @@ class App extends React.Component {
             }
         );
     }
+
+    //componentDidMount going to show every time when component first rendered
+    componentDidMount() {
+        console.log('My component was rendered to the screen');
+    }
+
+    //componentDidUpdate going to update when the state is update
+    componentDidUpdate() {
+        console.log('My component was just updated - it re rendered!');
+    }
     //React says we have to define render!!
     render() {
-        return (
-            <div>
-                Latitude: {this.state.lat}
-                <br />
-                Error: {this.state.errorMessage}
-            </div>
-            );
+        if (this.state.errorMessage && !this.state.lat){
+            return <div>Error: {this.state.errorMessage}</div>
+        }
+
+        if (!this.state.errorMessage && this.state.lat){
+            return <div>Latitude: {this.state.lat}</div>
+        }
+        // when waiting loading 
+        return <div>Loading ....</div>
     }
 }
 
